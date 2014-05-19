@@ -95,7 +95,8 @@ namespace System {
 
 			StringBuilder sb = new StringBuilder ();
 
-			if ((components & UriComponents.Scheme) != 0) {
+			if ((components & UriComponents.Scheme) != 0 &&
+				uri.IsAbsoluteUri) {
 				sb.Append (scheme);
 				sb.Append (Uri.GetSchemeDelimiter (scheme));
 			}
@@ -132,7 +133,8 @@ namespace System {
 
 			if ((components & UriComponents.Path) != 0) {
 				if ((components & UriComponents.PathAndQuery) != 0 &&
-					(elements.path.Length == 0 || !elements.path.StartsWith ("/")))
+					(elements.path.Length == 0 || !elements.path.StartsWith ("/"))
+					&& uri.IsAbsoluteUri)
 					sb.Append ("/");
 				sb.Append (elements.path);
 			}
